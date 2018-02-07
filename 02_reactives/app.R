@@ -46,7 +46,7 @@ server <- function(input, output) {
   
   biopics_filtered <- reactive({
     ##add code after biopics here
-    biopics 
+    biopics %>% filter(year_release > input$year_filter)
   })
    
    output$scatter_plot <- renderPlot({
