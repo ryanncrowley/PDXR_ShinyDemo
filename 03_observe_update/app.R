@@ -17,6 +17,7 @@ myDataFrame <- biopics
 categoricalVars <- get_category_variables(myDataFrame)
 numericVars <- get_numeric_variables(myDataFrame)
 
+
 ui <- shinyUI(
   fluidPage(
     fileInput("file1", "Choose csv file to upload", accept = ".csv"),
@@ -26,9 +27,9 @@ ui <- shinyUI(
                 selected = numericVars[2]),
 
     ##uncomment this code for step 4
-    #selectInput("color_variable", "Select Color Variable", 
-    #            names(categoricalVars), 
-    #            selected = names(categoricalVars[1])),
+    selectInput("color_variable", "Select Color Variable", 
+                names(categoricalVars), 
+                selected = names(categoricalVars[1])),
     
     plotOutput("scatter_plot")
   )
@@ -49,8 +50,8 @@ server <- function(input, output, session) {
   
   output$scatter_plot <- renderPlot({
     ggplot(myData(), aes_string(y=input$x_variable, 
-                                       x=input$y_variable# uncomment this line and next line for step 4, 
-                                      # color=input$color_variable
+                                       x=input$y_variable, # uncomment this line and next line for step 4, 
+                                       color=input$color_variable
                                        
                                     )) +  geom_point() 
 
@@ -73,15 +74,15 @@ server <- function(input, output, session) {
     
     ##get the new categorical variables when the data is loaded
     #uncomment here for step 4
-    #cat_vars <- names(get_category_variables(myData()))
+    cat_vars <- names(get_category_variables(myData()))
     
     ##update selectInput("color_variable") with the new categorical
     ##variables
 
     #uncomment here for step 4
-    #updateSelectInput(session, "color_variable",
-    #choices=cat_vars,
-    #                  selected=cat_vars[1])
+    updateSelectInput(session, "color_variable",
+    choices=cat_vars,
+                      selected=cat_vars[1])
     
   })
   
