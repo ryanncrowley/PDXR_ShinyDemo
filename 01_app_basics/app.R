@@ -12,7 +12,7 @@ library(devtools)
 data(biopics)
 biopics <- biopics %>% filter(!is.na(box_office))
 ##specify what categories we want to color with
-select_color_options <- c("type_of_subject", "subject_race", "subject_sex")
+select_color_options <- c("type_of_subject", "subject_race", "subject_sex", "person_of_color")
 min_year <- min(biopics$year_release)
 max_year <- max(biopics$year_release)
 
