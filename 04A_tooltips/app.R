@@ -26,7 +26,7 @@ ui <- shinyUI(
 ),
   mainPanel(
     ##hover is the critical parameter here
-    plotOutput("scatter_plot", hover = "plot_hover"),
+    plotOutput("scatter_plot", click  = "plot_hover"),
     uiOutput("hover_info")
     )
   ))
