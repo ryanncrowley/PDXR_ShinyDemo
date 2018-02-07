@@ -7,7 +7,7 @@
 library(shiny)
 library(tidyverse)
 library(fivethirtyeight)
-
+library(devtools)
 ##load the biopics data
 data(biopics)
 biopics <- biopics %>% filter(!is.na(box_office))
@@ -27,7 +27,8 @@ ui <- fluidPage(
    sidebarLayout(
       sidebarPanel(
         ## Add User Interface element here
-        
+        selectInput("color_opts", "Select Category to Color With",
+                    choices = select_color_options)
       ),
       
       # Show a plot of the generated distribution
@@ -43,14 +44,14 @@ server <- function(input, output) {
   
    output$scatter_plot <- renderPlot({
       biopics %>% ggplot(aes_string(y="box_office", x="year_release", 
-                                               color="type_of_subject")) + 
+                                               color=input$color_opts)) + 
        geom_point()
      
    })
    
    output$boxoffice_boxplot <- renderPlot({
      biopics %>% ggplot(aes_string(x="type_of_subject", y="box_office", 
-                                   fill="type_of_subject")) + 
+                                   fill=input$color_opts)) + 
        geom_boxplot() + theme(axis.text.x = element_text(angle=45))
    })
 }
